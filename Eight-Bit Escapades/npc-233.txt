@@ -1,0 +1,5 @@
+framestyle=2
+grabtop=1
+playerblocktop=1
+npcblocktop=1
+nofireball=1

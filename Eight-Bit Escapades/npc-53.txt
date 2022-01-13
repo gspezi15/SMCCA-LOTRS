@@ -1,0 +1,10 @@
+width=32
+height=44
+gfxwidth=32
+gfxheight=44
+frames=4
+framestyle=1
+framespeed=6
+gfxoffsety=0
+foreground=1
+nogravity=1

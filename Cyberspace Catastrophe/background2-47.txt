@@ -1,0 +1,12 @@
+[circuitboard]
+img="circuitboard.png"
+depth=INFINITE
+frames=4
+
+[circuitboard2]
+img="circuitboard2.png"
+depth=-10
+repeatX=true
+repeatY=true
+parallaxX=0.3
+parallaxY=1

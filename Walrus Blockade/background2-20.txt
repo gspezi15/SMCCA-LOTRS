@@ -1,0 +1,11 @@
+[forest]
+img="background2-20.png"
+depth=100
+repeatX=true
+alignY=BOTTOM
+
+[bamboo]
+img="foretrees.png"
+depth=80
+repeatX=true
+alignY=BOTTOM

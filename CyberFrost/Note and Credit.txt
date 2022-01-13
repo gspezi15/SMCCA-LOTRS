@@ -1,0 +1,2 @@
+Originally by Squishy Rex. I also fixed some 1x1 pixels in the stomped on effect.
+What I mean by "Reshaded" is it was reshaded with SMB3 colors. Get it?

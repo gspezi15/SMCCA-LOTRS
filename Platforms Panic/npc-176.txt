@@ -1,0 +1,8 @@
+gfxwidth=54
+gfxheight=64
+width=32
+height=65
+frames=4
+framespeed=6
+framestyle=1
+name="Kotengu"

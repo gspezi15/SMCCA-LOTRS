@@ -1,0 +1,7 @@
+effectID    = 113
+framespeed  = 5
+headoffset  = 0
+shaftheight = 32
+tailoffset  = 0
+tailheight  = 32
+fall        = true

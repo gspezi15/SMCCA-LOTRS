@@ -1,0 +1,7 @@
+gfxwidth=54
+gfxheight=64
+width=4
+height=4
+speed=0
+noblockcollision=1
+frames=4

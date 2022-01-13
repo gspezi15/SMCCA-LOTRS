@@ -1,0 +1,6 @@
+width=24
+height=24
+gfxwidth=24
+gfxheight=24
+jumphurt=0
+frames=4

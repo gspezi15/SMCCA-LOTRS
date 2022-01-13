@@ -1,0 +1,22 @@
+{
+	"style" : "groupbox",
+	"title" : "Huckit Crab Settings",
+	"layout": [	
+{
+			"control": "checkbox",
+			"name": "noMove",
+			"title": "Doesn't Move",
+			"tooltip": "Uncheck to give the Huckit Crab recoil from throwing its projectiles.",
+			"text-visible": true,
+			"value-default": false
+		},
+		{
+			"control": "checkbox",
+			"name": "throwRock",
+			"title": "Throws Rocks",
+			"tooltip": "Uncheck to make it throw sand balls instead of rocks.",
+			"text-visible": true,
+			"value-default": false
+		}
+		]
+}

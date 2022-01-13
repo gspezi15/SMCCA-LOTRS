@@ -1,0 +1,6 @@
+Enemy Classes:
+
+Ex-Minions
+Machines
+Yokai
+Bosses

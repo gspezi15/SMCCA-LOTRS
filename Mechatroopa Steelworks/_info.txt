@@ -1,0 +1,67 @@
+---        Mechakoopas        ---
+--- from MrDoubleA's NPC Pack ---
+---       (Give credit!)      ---
+
+
+
+The non-stunned mechakoopas have the following properties for NPC configs and npc-n.txt files:
+
+
+- turnTime (Default: 80)
+How long the NPC must be facing away from the player to turn around.
+
+- attackDistance (Defaults: nil, 256, 768)
+How close the player must be before the NPC can begin an attack. (Only affects zappa and blasta mechakoopas.)
+- attackStartTime (Defaults: nil, 96, 160)
+How long the NPC will wait before beginning an attack. (Only affects zappa and blasta mechakoopas.)
+
+- attackPrepareTime (Defaults: nil, 32, 32)
+How long the NPC takes to begin an attack. (Only affects zappa and blasta mechakoopas.)
+- attackReturnTime (Defaults: nil, 32, 32)
+How long the NPC takes to return to walking after an attack. (Only affects zappa and blasta mechakoopas.)
+
+- attackTime (Defaults: nil, 128, 96)
+How long the NPC takes to finish its attack. (Only affects zappa and blasta mechakoopas.)
+
+- laserColor (Default: nil, 0x3296FFFF, nil)
+The color of the NPC's laser. Can be either an RGBA hex color or a color object. (Only affects zappa mechakoopas.)
+- laserPointGFX (Defaults: nil, <image>, nil)
+The graphic used for the start and end of the NPC's laser. (Only affects zappa mechakoopas.)
+- laserMiddleGFX (Defaults: nil, <image>, nil)
+The graphic used for the middle of the NPC's laser. (Only affects zappa mechakoopas.)
+
+- prepareSFX (Defaults: nil, "mechakoopa_laser_prepare.wav", "mechakoopa_blaster_prepare.wav")
+The sound effect played when the NPC prepares an attack. Can be nil for none, a number for a vanilla sound, or a sound effect object/string for a custom sound. (Only affects zappa and blasta mechakoopas.)
+- fireSFX (Defaults: nil, "mechakoopa_laser_fire.wav", "mechakoopa_blaster_fire.wav")
+The sound effect played when the NPC executes an attack. Can be nil for none, a number for a vanilla sound, or a sound effect object/string for a custom sound. (Only affects zappa and blasta mechakoopas.)
+
+- transformID (Defaults: 752, 754, 756)
+The ID of the NPC that the NPC will transform into when hit/recovering.
+- deathEffectID (Defaults: 751, 752, 753)
+The ID of the effect spawned when the mechakoopa is killed, or can be nil for none.
+
+
+
+The stunned mechakoopas have the following properties for NPC configs and npc-n.txt files:
+
+
+- recoverTime (Default: 576)
+How long the NPC is idle before transforming.
+
+- transformID (Defaults: 752, 754, 756)
+The ID of the NPC that the NPC will transform into when hit/recovering.
+- deathEffectID (Defaults: 751, 752, 753)
+The ID of the effect spawned when the mechakoopa is killed, or can be nil for none.
+
+
+
+The blasta mechakoopa bullets have the following properties for NPC configs and npc-n.txt files:
+
+
+- lifetime (Default: 448)
+How long the NPC waits before exploding.
+- rotationSpeed (Default: 0.015)
+How quickly the NPC rotates.
+
+- explosionType (Default: <explosion ID>)
+The type of explosion the NPC spawns when exploding.

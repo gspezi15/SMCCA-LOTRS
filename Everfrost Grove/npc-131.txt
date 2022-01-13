@@ -1,0 +1,12 @@
+gfxoffsetx=-7
+gfxwidth=48
+gfxheight=64
+width=32
+height=64
+playerblocktop=0
+npcblocktop=0
+grabtop=0
+jumphurt=1
+speed=0
+nofireball=0
+nogravity=1

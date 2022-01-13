@@ -1,0 +1,8 @@
+gfxwidth=72
+gfxheight=64
+width=72
+height=64
+gridalign=1
+lightbrightness=1
+lightcolor=#ffffff
+lightradius=256

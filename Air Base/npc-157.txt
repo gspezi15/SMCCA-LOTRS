@@ -1,0 +1,6 @@
+width=48
+height=94
+grabside=0
+grabtop=0
+frames=1
+framestyle=1

@@ -1,0 +1,12 @@
+[BG]
+name="background"
+depth=600
+img="background2-23.png"
+alignY=BOTTOM
+repeatX=true
+
+[snowtrees]
+img="snowtrees.png"
+depth=200
+repeatX=true
+alignY=BOTTOM

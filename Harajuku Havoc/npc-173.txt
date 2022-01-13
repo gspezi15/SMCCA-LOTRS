@@ -1,0 +1,9 @@
+gfxwidth=28
+gfxheight=64
+foreground=1
+width=28
+height=64
+cliffturn=1
+frames=4
+framespeed=10
+framestyle=1

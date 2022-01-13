@@ -1,0 +1,15 @@
+[forest]
+img="background2-39.png"
+depth=100
+repeatX=true
+alignY=BOTTOM
+fitY=true
+parallaxY=1
+
+[bamboo]
+img="bamboo.png"
+depth=80
+repeatX=true
+alignY=BOTTOM
+parallaxY=1
+fitY=true

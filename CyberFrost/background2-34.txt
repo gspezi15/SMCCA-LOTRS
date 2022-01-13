@@ -1,0 +1,17 @@
+[forebuildings]
+img="forebuildings_ruined.png"
+depth=120
+repeatX=true
+alignY=BOTTOM
+
+[sapporo]
+img="sdpf_hokkaido_ruined.png"
+depth=450
+repeatX=true
+alignY=BOTTOM
+
+[grad]
+img="grad_burning.png"
+depth=INFINITE
+repeatX=true
+alignY=BOTTOM

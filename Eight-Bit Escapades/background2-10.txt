@@ -1,0 +1,5 @@
+[bg]
+img="background2-11.png"
+depth=0
+alignY=BOTTOM
+repeatX=true

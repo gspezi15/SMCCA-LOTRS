@@ -1,0 +1,19 @@
+{
+	"style" : "groupbox",
+	"title" : "Torch Settings",
+	"layout": [
+		
+		
+			{
+				"control": "LineEdit",
+				"name": "tag",
+				"title": "tag name",
+				"tooltip": "tag to use events",
+				"value-default": ""	
+			}	
+
+				
+				
+		]
+}
+	

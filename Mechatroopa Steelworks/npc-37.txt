@@ -1,0 +1,9 @@
+gfxwidth=128
+gfxheight=128
+width=126
+height=128
+playerblock=1
+playerblocktop=1
+npcblock=1
+name="Industrial Weight"
+gridalign=1

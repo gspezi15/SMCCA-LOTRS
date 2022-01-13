@@ -1,0 +1,20 @@
+[forest]
+img="background2-33.png"
+depth=100
+repeatX=true
+alignY=BOTTOM
+
+[bamboo]
+img="bamboo.png"
+depth=80
+repeatX=true
+alignY=BOTTOM
+
+[fronttrees]
+img="fronttrees.png"
+depth= -25
+repeatX=true
+repeatY=true
+alignY=BOTTOM
+marginLeft=1024
+padX=1024

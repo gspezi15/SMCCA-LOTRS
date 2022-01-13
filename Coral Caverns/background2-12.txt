@@ -1,0 +1,13 @@
+[background]
+img="background.png"
+depth=200
+repeatX=true
+repeatY=true
+alignY=BOTTOM
+
+[foreground]
+img="foreground.png"
+depth=100
+repeatX=true
+repeatY=true
+alignY=BOTTOM

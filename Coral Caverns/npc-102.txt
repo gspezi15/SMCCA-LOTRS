@@ -1,0 +1,7 @@
+gfxheight=280
+gfxwidth=196
+height=280
+width=196
+frames=1
+framestyle=0
+nogravity=1

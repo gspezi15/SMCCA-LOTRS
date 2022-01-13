@@ -1,0 +1,13 @@
+[backmountains]
+img="darkclouds.png"
+depth=500
+repeatX=true
+alignY=BOTTOM
+speedX=-0.3
+
+[sky]
+img="darksky.png"
+depth=800
+speedX=-0.2
+repeatX=true
+alignY=BOTTOM

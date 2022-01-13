@@ -1,0 +1,10 @@
+gfxoffsetx=-18
+gfxwidth=186
+gfxheight=120
+width=116
+height=112
+grabtop=0
+noyoshi=1
+nofireball=1
+noiceball=1
+framestyle=1

@@ -1,0 +1,8 @@
+width=38
+height=36
+gfxwidth=38
+gfxheight=36
+grabtop=0
+playerblocktop=0
+nofireball=0
+noiceball=0

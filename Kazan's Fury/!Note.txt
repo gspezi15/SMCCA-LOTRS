@@ -1,0 +1,4 @@
+Intended to be used it Benial's Geyser Library.
+Get it here! : https://www.supermariobrosx.org/forums/viewtopic.php?t=27293&p=387676
+
+Please put the lava geyser 8 pixels (or more) below the surface of the lava.

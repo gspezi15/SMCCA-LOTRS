@@ -1,0 +1,12 @@
+AnotherPowerDownLibrary - KBM-Quine
+AnotherWallJump - Enjl 
+Adversary and Projectiles - Enjl (for Bosses)
+SMWmap - MrDoubleA (World Map)
+AreaNames - Enjl (Area names)
+WarpTransition - MrDoubleA
+SMGlifesystem - Marioman2007
+Kindhurtblock - MrDoubleA
+
+New libs needed:
+shards - handles the passive shard effects and shard blessings
+dash - allowing horizontal dashing on ground and in air.

@@ -1,0 +1,9 @@
+gfxwidth=66
+gfxheight=50
+width=64
+height=50
+noyoshi=1
+nofireball=1
+lightbrightness=1
+lightcolor=#ffffff
+lightradius=256

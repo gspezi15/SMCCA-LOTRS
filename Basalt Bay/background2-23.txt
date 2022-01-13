@@ -1,0 +1,12 @@
+[islands]
+img="islands.png"
+depth=450
+repeatX=true
+alignY=BOTTOM
+
+[volcanoclouds]
+img="volcanoclouds.png"
+depth=800
+repeatX=true
+alignY=BOTTOM
+speedX=-0.2

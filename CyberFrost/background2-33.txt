@@ -1,0 +1,17 @@
+[forebuildings]
+img="forebuildings.png"
+depth=120
+repeatX=true
+alignY=BOTTOM
+
+[sapporo]
+img="sdpf_hokkaido.png"
+depth=450
+repeatX=true
+alignY=BOTTOM
+
+[grad]
+img="grad.png"
+depth=INFINITE
+repeatX=true
+alignY=BOTTOM

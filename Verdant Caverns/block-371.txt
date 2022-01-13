@@ -1,0 +1,1 @@
+lightcolor = #7545D4

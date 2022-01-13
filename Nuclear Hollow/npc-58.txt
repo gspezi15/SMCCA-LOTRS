@@ -1,0 +1,8 @@
+gfxwidth=64
+gfxheight=64
+width=64
+height=64
+framestyle=0
+frames=4
+nogravity=1
+framespeed=2

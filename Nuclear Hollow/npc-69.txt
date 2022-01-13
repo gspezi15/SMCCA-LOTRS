@@ -1,0 +1,5 @@
+gfxwidth=96
+gfxheight=128
+width=94
+height=128
+gridalign=1
