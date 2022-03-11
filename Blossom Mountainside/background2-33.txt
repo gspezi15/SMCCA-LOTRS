@@ -1,6 +1,6 @@
 [Backdrop]
 name="BG"
-depth=450
+depth=1100
 alignY=BOTTOM
 img="sky.png"
 repeatX=true
@@ -8,10 +8,10 @@ speedX=-0.1
 
 [Mountains]
 name="mountains"
-depth=300
-alignY=BOTTOM
+depth=450
 img="mtns.png"
 repeatX=true
+alignY=BOTTOM
 
 [Hills]
 name="hills"
