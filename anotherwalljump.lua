@@ -1,6 +1,11 @@
 -- How to use: Read the comments while having a basic understanding of code.
--- By Enjl, October 2019.
--- 1.2
+-- By Enjl, October 2019 - May 2020.
+-- 1.3
+-- Recent changes:
+-- Added blacklist
+-- Added whitelist
+-- Fixed invisible blocks and hurt blocks being walljumpable.
+-- Fixed tail spins
 
 local aw = {}
 local registeredCharacters = {}
@@ -12,7 +17,7 @@ aw.allowSpinjump = true
 -- Whether to prevent consecutive jumps off the same wall.
 aw.preventLastDirection = false
 -- Whether to prevent consecutive jumps off the same wall ONLY when the powerup state is one that permits flight.
-aw.preventLastDirectionWhenFlying = false
+aw.preventLastDirectionWhenFlying = true
 -- Horizontal speed upon leaving the wall.
 aw.xForce = 6
 -- Frames of rising momentum after jumping off a wall.
@@ -39,6 +44,10 @@ local function checkOverride(a, b)
     end
     return a
 end
+
+local blockList = Block.SOLID
+local whitelist = {}
+local blacklist = {}
 
 -- Registers a character ID to the walljump system.
 -- The second argument is a frameTable, corresponding to the "wall slide" frames the character should use in each powerup state.
@@ -99,6 +108,22 @@ function aw.disable(p)
     registeredCharacters[p.character].enabled = false
 end
 
+-- Whitelists a block, making it walljumpable even if it's a lava, hurt, semisolid, nonsolid or sizable block
+function aw.whitelist(id)
+    if (not whitelist[id]) then
+        table.insert(blockList, id)
+        whitelist[id] = true
+    end
+end
+
+-- Blacklists a block, making it unwalljumpable even if it would otherwise qualify
+function aw.blacklist(id)
+    blacklist[id] = true
+end
+-- If you want to change the blacklist or whitelist at runtime,
+-- I recommend instead switching the ID of the block to one that carries different walljump properties.
+-- Make sure to maybe also use different sprites, to ensure players know what's going on.
+
 -- Below here is nothing of interest for those seeking exposed customizability.
 -- For those seeking to alter the code, be my guest, but don't @ me.
 
@@ -126,12 +151,17 @@ local function walljump(p)
 
     local b = Colliders.getColliding{
         a = collider,
-        b = Block.SOLID,
+        b = blockList,
         btype = Colliders.BLOCK,
         filter = function(o)
-            if o.isHidden or o:mem(0x5A, FIELD_WORD) < 0 then
+            if o.invisible or o:mem(0x5A, FIELD_BOOL) or o:mem(0x5C, FIELD_BOOL) then
                 return false
             end
+
+            if (not whitelist[o.id]) and (blacklist[o.id] or Block.LAVA_MAP[o.id] or Block.HURT_MAP[o.id]) then
+                return false
+            end
+
             return true
         end
     }
@@ -150,12 +180,16 @@ local function walljump(p)
         break
         if k == #b then
             atWall[idx] = 0
-            p:mem(0x164, FIELD_WORD, 0)
+            if p:mem(0x164, FIELD_WORD) == -1 then
+                p:mem(0x164, FIELD_WORD, 0)
+            end
         end
     end
     if #b == 0 then
         atWall[idx] = 0
-        p:mem(0x164, FIELD_WORD)
+        if p:mem(0x164, FIELD_WORD) == -1 then
+            p:mem(0x164, FIELD_WORD, 0)
+        end
     end
     
     if atWall[idx] ~= 0 then --movement handling while at a wall
@@ -206,12 +240,16 @@ function aw.onTick()
             else
                 lastDir[p.idx] = 0
                 atWall[p.idx] = 0
-                p:mem(0x164, FIELD_WORD)
+                if p:mem(0x164, FIELD_WORD) == -1 then
+                    p:mem(0x164, FIELD_WORD, 0)
+                end
             end
         else
             lastDir[p.idx] = 0
             atWall[p.idx] = 0
-            p:mem(0x164, FIELD_WORD)
+            if p:mem(0x164, FIELD_WORD) == -1 then
+                p:mem(0x164, FIELD_WORD, 0)
+            end
         end
         cantThisFrame[p.idx] = false
     end
