@@ -1,0 +1,3 @@
+name="Vine Stem (Right)"
+description="Intended to be placed on <u>Muncher Forest Vines</u>"
+priority=125

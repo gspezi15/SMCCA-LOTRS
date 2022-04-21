@@ -1,8 +1,8 @@
 gfxoffsetx=2
-gfxwidth=52
-gfxheight=36
-frames=4
-framespeed=8
+gfxwidth=40
+gfxheight=32
+frames=2
+framespeed=6
 framestyle=1
 gridoffsetx=0
 gridoffsety=-2
