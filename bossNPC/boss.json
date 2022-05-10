@@ -1,0 +1,266 @@
+{
+	"style" : "groupbox",
+	"title" : "Boss Settings",
+	"layout": [
+		{
+		  "control": "multiLineEdit",
+		  "name": "initCode",
+		  "title": "Init Code",
+		  "value-default": ""
+		},
+		{
+			"control": "spinBox",
+			"type": "int",
+			"name": "effect",
+			"title": "Effect's ID",
+			"value-default": 0,
+			"value-min": 0
+		},	
+		{
+			"control": "spinBox",
+			"type": "int",
+			"name": "width",
+			"title": "Width",
+			"value-default": 0,
+			"value-min": 0
+		},	
+		{
+			"control": "spinBox",
+			"type": "int",
+			"name": "height",
+			"title": "Height",
+			"value-default": 0,
+			"value-min": 0
+		},		
+		{
+			"control" : "group",
+			"title" : "HP Settings",
+			"name" : "..",
+			"children": [	
+				{
+					"control": "spinBox",
+					"type": "int",
+					"name": "maxHP",
+					"title": "HP",
+					"value-default": 5,
+					"value-min": 1
+				},	
+				{
+					"control": "combobox",
+					"name": "drawHp",
+					"title": "HP Bar's Style",
+					"elements": ["Custom", "None", "Simple", "Kirby"],
+					"value-default": 2
+				},
+				{
+					"control": "file",
+					"name": "customHp",
+					"title": "HP Bar's Style (Custom)",
+					"value-default": ""
+				},
+				{
+					"control": "file",
+					"name": "bossIcon",
+					"title": "Boss's Icon",
+					"value-default": ""
+				},
+				{
+					"control": "lineEdit",
+					"name": "bossName",
+					"title": "Boss's Name",
+					"value-default": "Boss"
+				}
+			]
+		},
+		{
+			"control": "file",
+			"name": "textureFilename",
+			"title": "Texture's File name",
+			"tooltip": "Enter number to use this npc's texture (0 - this npc's texture).",	
+			"value-default": "0"
+		},
+		{
+			"control": "checkbox",
+			"name": "nolava",
+			"title": "Lava Immunity?",
+			"text-visible": false,
+			"value-default": false
+		},
+		{
+			"control": "checkbox",
+			"name": "nofireball",
+			"title": "Fireball Immunity?",
+			"text-visible": false,
+			"value-default": false
+		},
+		{
+			"control": "checkbox",
+			"name": "nogravity",
+			"title": "No Gravity?",
+			"text-visible": false,
+			"value-default": false
+		},
+		{
+			"control": "checkbox",
+			"name": "noblockcollision",
+			"title": "No Block Collision?",
+			"text-visible": false,
+			"value-default": false
+		},
+		{
+		  "control": "multiLineEdit",
+		  "name": "harmEvent",
+		  "title": "Harm Code",
+		  "value-default": ""
+		},
+		{
+			"control" : "group",
+			"title" : "Damage from Harm Types",
+			"tooltip": "If damage is equal to zero, then this harm type is ignored.",	
+			"name" : "..",
+			"children": [	
+				{
+					"control": "spinBox",
+					"type": "double",
+					"name": "harmtype1",
+					"title": "Jump",
+					"value-default": 1,
+					"value-min": 0,
+					"single-step": 0.01
+				},
+				{
+					"control": "spinBox",
+					"type": "double",
+					"name": "harmtype2",
+					"title": "Shaking Block",
+					"value-default": 1,
+					"value-min": 0,
+					"single-step": 0.01
+				},
+				{
+					"control": "spinBox",
+					"type": "double",
+					"name": "harmtype3",
+					"title": "Projectile",
+					"value-default": 1,
+					"value-min": 0,
+					"single-step": 0.01
+				},
+				{
+					"control": "spinBox",
+					"type": "double",			
+					"name": "harmtype5",
+					"title": "Held NPC",
+					"value-default": 1,
+					"value-min": 0,
+					"single-step": 0.01
+				},
+				{
+					"control": "spinBox",
+					"type": "double",
+					"name": "harmtype7",
+					"title": "Tail",
+					"value-default": 1,
+					"value-min": 0,
+					"single-step": 0.01
+				},
+				{
+					"control": "spinBox",
+					"type": "double",
+					"name": "harmtype8",
+					"title": "Boot",
+					"value-default": 1,
+					"value-min": 0,
+					"single-step": 0.01
+				},
+				{
+					"control": "spinBox",
+					"type": "double",
+					"name": "harmtype10",
+					"title": "Link Sword Hit",
+					"value-default": 1,
+					"value-min": 0,
+					"single-step": 0.01
+				}
+			]
+		},
+		{
+			"control" : "group",
+			"title" : "Immunity Settings",
+			"name" : "..",
+			"children": [	
+				{
+					"control": "spinBox",
+					"type": "double",
+					"name": "immunityMax",
+					"title": "Immunity Frames",
+					"value-default": 75,
+					"value-min": 0,
+					"single-step": 0.01
+				},
+				{
+					"control": "combobox",
+					"name": "immunityStyle",
+					"title": "Immunity's Style",
+					"elements": ["None", "Flashing", "Flashing 2", "Smooth", "Translucent"],
+					"value-default": 2
+				}
+			]
+		},
+		{
+			"control" : "group",
+			"title" : "Animation Settings",
+			"name" : "..",
+			"children": [	
+				{
+					"control": "combobox",
+					"name": "frameStyle",
+					"title": "Framestyle",
+					"elements": ["None", "0", "1", "2"],
+					"value-default": 2
+				},
+				{
+					"control": "spinBox",
+					"type": "int",
+					"name": "frameSpeed",
+					"title": "Framespeed",
+					"value-default": 8,
+					"value-min": 0
+				},	
+				{
+					"control": "spinBox",
+					"type": "int",
+					"name": "frames",
+					"title": "Amount of Frames",
+					"value-default": 0,
+					"value-min": 0
+				},
+				{
+				  "control": "multiLineEdit",
+				  "name": "customAnimation",
+				  "title": "Custom Animation",
+				  "value-default": ""
+				},
+				{
+				  "control": "multiLineEdit",
+				  "name": "customRender",
+				  "title": "Rendering",
+				  "value-default": ""
+				}
+			]
+		},
+		{
+			"control" : "group",
+			"title" : "Phases and Attacks",
+			"name" : "..",
+			"children": [	
+				{
+					"control": "file",
+					"name": "phasesFile",
+					"title": "Lua File",
+					"value-default": "bossNPC/bossExample.lua"
+				}
+			]		
+		}
+	]
+}
