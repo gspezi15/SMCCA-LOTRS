@@ -16,7 +16,8 @@ npcManager.setNpcSettings({
 })
 
 local sfx =  SFX.play("wind.ogg", 1, 0)
-
+sfx:pause()
+		
 function npc.onTickEnd()
 	local play = false
 	
@@ -33,6 +34,16 @@ function npc.onTickEnd()
 	end
 end
 
+local function isColliding(a,b)
+	   if ((b.x >= a.x + a.width) or
+		   (b.x + b.width <= a.x) or
+		   (b.y >= a.y + a.height) or
+		   (b.y + b.height <= a.y)) then
+			  return false 
+	   else return true
+           end
+	end
+	
 function npc.onTickEndNPC(v)
 	if v.despawnTimer < 100 then
 		return 
@@ -42,17 +53,27 @@ function npc.onTickEndNPC(v)
 	
 	local config = NPC.config[id]
 	local section = Section(v.section)
+	local bound = section.boundary
 	
 	if math.random() > 0.5 then
-		local x = section.boundary.left
-		
-		if v.direction == -1 then
-			x = section.boundary.right
+		for k,c in ipairs(Camera.get()) do
+			if ((k == 2 and c.isSplit) or k ~= 2) and isColliding(c, {
+				x = bound.left, 
+				y = bound.top,
+				width = bound.right - bound.left, 
+				height = bound.bottom - bound.top,
+			}) then
+				local x = c.x
+			
+				if v.direction == -1 then
+					x = c.x + c.width
+				end
+				
+				local e = Effect.spawn(config.effect, x, c.y)
+				e.y = e.y + (math.random(c.height))
+				e.speedX = 48 * v.direction
+			end
 		end
-		
-		local e = Effect.spawn(config.effect, x, section.boundary.top)
-		e.y = e.y + (math.random(0, section.boundary.bottom - section.boundary.top))
-		e.speedX = 48 * v.direction
 	end
 	
 	for k,p in ipairs(Player.get()) do
