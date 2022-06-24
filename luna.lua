@@ -9,6 +9,7 @@ local areaNames = require("areaNames")
 local warpTransition = require ("warpTransition")
 local littleDialogue = require("littleDialogue")
 littleDialogue.defaultStyleName = "ml"
+local extraSounds = require ("extrasounds")
 
 local SmgLifeSystem = require("SmgLifeSystem")
 SmgLifeSystem.healthX = 650
