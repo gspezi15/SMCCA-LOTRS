@@ -10,6 +10,7 @@ local warpTransition = require ("warpTransition")
 local littleDialogue = require("littleDialogue")
 littleDialogue.defaultStyleName = "ml"
 local extraSounds = require ("extrasounds")
+local dive = require ("dive")
 
 local SmgLifeSystem = require("SmgLifeSystem")
 SmgLifeSystem.healthX = 650
