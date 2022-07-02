@@ -1,5 +1,5 @@
 local dive = {}
---2.1
+--1.2.1
 
 local textplus = require("textplus")
 local playeranim = require("playerAnim")
@@ -13,19 +13,19 @@ end
 
 dive.showMeDebug = false
 local diveSfx = {
-	Misc.resolveFile("dive1.flac"),
-	Misc.resolveFile("dive2.flac"),
-	Misc.resolveFile("dive3.flac")
+	Misc.resolveFile("dash.wav"),
+    Misc.resolveFile("dash.wav"),
+    Misc.resolveFile("dash.wav")
 }
 
 local isDiving = {false,false}
 local diveTimeline = {0,0}
 local diveCooldown = {0,0}
-local unmounting = {false,false}
 
 --The Dive™
 dive.impulseY =		4.27
 dive.diveCooldown =		0
+dive.allowEveryCharacter = false
 
 --Animation
 local diveFrames = {41,41,41,2}
@@ -69,17 +69,14 @@ function dive.onTick() for k, p in ipairs(Player.get()) do
 			not p:mem(0x50,FIELD_BOOL) and -- Spinning
 			not isUnderwater() and
 			not isOnMount() and
-			not unmounting[k] and
 			not p:mem(0x44, FIELD_BOOL) and -- Riding a rainbow shell
-			not p:mem(0x12E, FIELD_BOOL) and -- Ducking
 			not p:mem(0x13C, FIELD_BOOL) and -- Is Dead
 			not p.holdingNPC and
 			not p.isMega and
 			p.deathTimer == 0 and
 			Level.winState() == 0 and
-			not (p.speedY > 0 and (p.powerup == 4 or p.powerup == 5)) and
 			p.forcedState == 0 and
-			(p.character == 1)
+			(p.character == 1 or dive.allowEveryCharacter)
 	) end
 
 
@@ -91,12 +88,7 @@ function dive.onTick() for k, p in ipairs(Player.get()) do
 		end
 	end
 
---quick fix, just ignore------
-	if isUnderwater() then
-		isDiving[k] = false
-		diveTimeline[k] = -1
-	end
-------------------------------
+
 	dive.controls = p.keys.down and p.keys.altJump
 	if dive.controls and diveCooldown[k] > dive.diveCooldown then
 		isDiving[k] = true
@@ -144,18 +136,8 @@ function dive.onTick() for k, p in ipairs(Player.get()) do
 		diveAnim:stop(p)
 	end
 
-	--Unmounting
-	if isOnMount() then
-		unmounting[k] = true
-	end
-	if unmounting[k] and dive.controls then
-		unmounting[k] = true
-	elseif not dive.controls then
-		unmounting[k] = false
-	end
 
-
-	if isOnGround() then
+	if isOnGround() or isOnMount() or isUnderwater() then
 		resetDiving()
 	end
 
@@ -179,12 +161,6 @@ function dive.onTick() for k, p in ipairs(Player.get()) do
 		print(7,	"Cooldown",					diveCooldown[k]		,Color(1, 0.4, 0.4))
 	else
 		print(7,	"Cooldown",					diveCooldown[k]		,Color.green)
-	end
-	if unmounting[k] then
-		print(10,	"Jumping off Mounting",		unmounting[k]	,Color.lightblue)
-		print(7,	"Cooldown",					diveCooldown[k]		,Color.lightblue)
-	else
-		print(10,	"Jumping off Mounting",		unmounting[k])
 	end
 end
 end
