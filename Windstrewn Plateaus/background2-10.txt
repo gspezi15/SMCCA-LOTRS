@@ -7,18 +7,12 @@ speedX=-0.15
 
 [mountains]
 img="mountains.png"
-depth=650
+depth=750
 repeatX=true
 alignY=BOTTOM
 
 [Bamboo]
-img="bamboo.png"
-depth=125
-repeatX=true
-alignY=BOTTOM
-
-[bamboo2]
-img="forebamboo.png"
-depth=100
+img="fg_hills.png"
+depth=250
 repeatX=true
 alignY=BOTTOM
