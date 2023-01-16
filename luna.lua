@@ -11,6 +11,7 @@ local littleDialogue = require("littleDialogue")
 littleDialogue.defaultStyleName = "ml"
 local extraSounds = require ("extrasounds")
 local dive = require ("dive")
+local retroResolution = require("retroResolution")
 
 local SmgLifeSystem = require("SmgLifeSystem")
 SmgLifeSystem.healthX = 650
