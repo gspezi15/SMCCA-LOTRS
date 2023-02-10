@@ -26,6 +26,12 @@ img="forecity.png"
 depth=500
 alignY=BOTTOM
 
+[country]
+img="Country.png"
+depth=200
+repeatX=true
+alignY=BOTTOM
+
 [Bamboo]
 img="bamboo.png"
 depth=125
