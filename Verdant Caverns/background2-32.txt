@@ -1,0 +1,17 @@
+[leaves]
+img="leaves.png"
+depth=150
+repeatX=true
+alignY=BOTTOM
+
+[woods]
+img="woods.png"
+depth=350
+repeatX=true
+alignY=BOTTOM
+
+[sky]
+img="gradient.png"
+depth=600
+repeatX=true
+alignY=BOTTOM
