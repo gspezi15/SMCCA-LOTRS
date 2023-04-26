@@ -1,0 +1,17 @@
+[front]
+img="front.png"
+depth=200
+repeatX=true
+alignY=BOTTOM
+
+[barrels]
+img="barrels.png"
+depth=150
+repeatX=true
+alignY=BOTTOM
+
+[back]
+img="back.png"
+depth=500
+repeatX=true
+alignY=BOTTOM
