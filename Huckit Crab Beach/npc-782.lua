@@ -38,6 +38,9 @@ local crabSettings = {
 
 	grabside=false,
 	grabtop=false,
+	
+	rock = 784,
+	sand = 783,
 }
 
 --Applies NPC settings
@@ -143,28 +146,38 @@ function crab.onTickEndNPC(v)
 	
 	data.timer = data.timer + 1
 
-	if data.timer >= 166 and data.timer <= 176 and v.data._settings.noMove == false then
+	if data.timer >= v.data._settings.delay + 39 and data.timer <= v.data._settings.delay + 49 and v.data._settings.noMove == false then
 		v.x = v.x - 3 * v.direction
 	else
 		v.speedX = 0
 	end
 
-	if data.timer == 127 then
+	if data.timer == v.data._settings.delay then
 		data.state = STATE_PREPARE
-	elseif data.timer == 159 and v.collidesBlockBottom then
+	elseif data.timer == v.data._settings.delay + 32 and v.collidesBlockBottom then
 		v.speedY = -6
-	elseif data.timer == 165 then
+	elseif data.timer == v.data._settings.delay + 38 then
 		data.state = STATE_THROW
-	elseif data.timer == 166 then
+	elseif data.timer == v.data._settings.delay + 39 then
 		if v.data._settings.throwRock then
-			local n = NPC.spawn(npcID + 2, v.x + v.width * 0.5 * (1.5 + v.direction), v.y + 0.5 * v.height, player.section, false, true)
-			n.speedX = 3 * v.direction
+			local n = NPC.spawn(crabSettings.rock, v.x + v.width * 0.5 * (1.5 + v.direction), v.y + 0.5 * v.height, player.section, false, true)
+			n.speedX = v.data._settings.xSpeed * v.direction
+			n.speedY = v.data._settings.ySpeed
+			n.ai2 = v.data._settings.ySpeed
+			if v.data._settings.projGrav then
+				n.ai1 = 1
+			end
 		else
-			local e = NPC.spawn(npcID + 1, v.x + v.width * 0.5 * (1.5 + v.direction), v.y + 0.5 * v.height, player.section, false, true)
-			e.speedX = 3 * v.direction
+			local e = NPC.spawn(crabSettings.sand, v.x + v.width * 0.5 * (1.5 + v.direction), v.y + 0.5 * v.height, player.section, false, true)
+			e.speedX = v.data._settings.xSpeed * v.direction
+			e.speedY = v.data._settings.ySpeed
+			e.ai2 = v.data._settings.ySpeed
+			if v.data._settings.projGrav then
+				e.ai1 = 1
+			end
 		end
 		SFX.play(25)
-	elseif data.timer > 176 then
+	elseif data.timer > v.data._settings.delay + 49 then
 		data.state = STATE_WAIT
 		data.timer = 0
 	end

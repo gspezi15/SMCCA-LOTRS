@@ -42,11 +42,11 @@ function huckitBalls.register(id)
 end
 
 function huckitBalls.onTickEndNPC(v)
-local config = NPC.config[v.id]
-local data = v.data
+	local config = NPC.config[v.id]
+	local data = v.data
 
-v.animationFrame = 0
-if v:mem(0x12A, FIELD_WORD) <= 0 then
+	v.animationFrame = 0
+	if v:mem(0x12A, FIELD_WORD) <= 0 then
 		data.rotation = nil
 		return
 	end
@@ -66,9 +66,33 @@ if v:mem(0x12A, FIELD_WORD) <= 0 then
 		v:kill(HARM_TYPE_JUMP)
 		p:harm()
 	end
-	for _,b in ipairs(Block.getIntersecting(v.x, v.y, v.x + v.width, v.y + v.height)) do
-		if not Block.SIZEABLE_MAP[b.id] then
-		v:kill(HARM_TYPE_JUMP)
+	
+	if v.ai1 == 0 then
+		v.noblockcollision = true
+		
+		if v.ai2 == 0 then
+			v.speedY = -Defines.npc_grav
+		else
+			v.speedY = v.ai2
+		end
+		
+		local tbl = Block.SOLID .. Block.PLAYER
+		collidingBlocks = Colliders.getColliding {
+			a = v,
+			b = tbl,
+			btype = Colliders.BLOCK
+		}
+
+		if #collidingBlocks > 0 then --Not colliding with something
+			v:kill()
+		end
+		
+	else
+		if v.collidesBlockBottom then
+			v.speedY = -4.5
+		end
+		if v.collidesBlockLeft or v.collidesBlockRight then
+			v:kill()
 		end
 	end
 end

@@ -1,5 +1,5 @@
 [gradient]
-img="gradient.png"
+img="gradient2.png"
 repeatX=true
 alignY=BOTTOM
 depth=INFINITE
@@ -12,15 +12,6 @@ alignY=BOTTOM
 depth=12000
 fitY=true
 fitX=true
-
-[clouds]
-img="clouds.png"
-repeatX=true
-alignY=BOTTOM
-depth=800
-speedX=-0.3
-parallaxY=0.5
-fitY=1
 
 [sea]
 img="sealt1.png"

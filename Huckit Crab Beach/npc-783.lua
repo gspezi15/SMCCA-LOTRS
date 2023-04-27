@@ -17,9 +17,9 @@ local config = {
 	nofireball = true,
 	noiceball = true,
 	noyoshi = true,
-    nogravity = true,
+    nogravity = false,
     spinjumpsafe = true,
-    noblockcollision = true,
+    noblockcollision = false,
     score = 0
 }
 npcManager.setNpcSettings(config)
