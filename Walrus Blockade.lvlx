@@ -2,9 +2,9 @@ HEAD
 TL:"Walrus Blockade";CPID:"SMBX2";
 HEAD_END
 SECTION
-SC:0;L:-200000;R:-186176;T:-200600;B:-200000;MZ:24;MF:"Snow Overworld.spc";BG:20;XTRA:"{\n    \"effects\"\: {\n        \"screenEffects\"\: 0\,\n        \"weather\"\: 2\n    }\n}\n";
+SC:0;L:-200000;R:-186176;T:-200600;B:-200000;MZ:24;MF:"Forest Frozen in Summer.spc";BG:20;XTRA:"{\n    \"effects\"\: {\n        \"screenEffects\"\: 0\,\n        \"weather\"\: 2\n    }\n}\n";
 SC:1;L:-180000;R:-178240;T:-180600;B:-180000;MZ:24;MF:"Snow Underground 2.spc";BG:54;
-SC:2;L:-160000;R:-146688;T:-160600;B:-160000;MZ:24;MF:"Snow Overworld.spc";BG:32;XTRA:"{\n    \"effects\"\: {\n        \"weather\"\: 2\n    }\n}\n";
+SC:2;L:-160000;R:-146688;T:-160600;B:-160000;MZ:24;MF:"Forest Frozen in Summer.spc";BG:32;XTRA:"{\n    \"effects\"\: {\n        \"weather\"\: 2\n    }\n}\n";
 SC:3;L:-140000;R:-138624;T:-140600;B:-140000;MZ:24;MF:"Snow Underground 2.spc";BG:30;
 SC:4;L:-120000;R:-119200;T:-120600;B:-120000;MZ:24;MF:"Snow Underground.ogg";BG:30;
 SECTION_END
