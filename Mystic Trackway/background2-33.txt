@@ -5,7 +5,7 @@ repeatX=true
 alignY=BOTTOM
 
 [bamboo]
-img="bamboo.png"
+img="garden.png"
 depth=80
 repeatX=true
 alignY=BOTTOM
