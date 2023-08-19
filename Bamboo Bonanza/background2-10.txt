@@ -19,12 +19,12 @@ alignY=BOTTOM
 
 [Bamboo]
 img="bamboo.png"
-depth=125
+depth=150
 repeatX=true
 alignY=BOTTOM
 
 [bamboo2]
-img="forebamboo.png"
+img="garden2.png"
 depth=100
 repeatX=true
 alignY=BOTTOM
