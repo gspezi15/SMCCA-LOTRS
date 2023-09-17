@@ -13,6 +13,12 @@ img="mtns.png"
 repeatX=true
 alignY=BOTTOM
 
+[newer-hills]
+img="newer-hills.png"
+depth=250
+repeatX=true
+alignY=BOTTOM
+
 [Hills]
 name="hills"
 depth=100
