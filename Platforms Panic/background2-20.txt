@@ -1,0 +1,11 @@
+[forest]
+img="forest.png"
+depth=350
+repeatX=true
+alignY=BOTTOM
+
+[trees]
+img="trees.png"
+depth=150
+repeatX=true
+alignY=BOTTOM

@@ -1,3 +1,10 @@
+[rockpillars]
+img="rockpillar.png"
+depth=100
+repeatX=true
+alignY=BOTTOM
+repeatY=true
+
 [trees]
 img="trees.png"
 depth=150
@@ -6,25 +13,25 @@ alignY=BOTTOM
 
 [cliffs]
 img="nsmbwmountains.png"
-depth=400
+depth=600
 repeatX=true
 alignY=BOTTOM
 
 [mountains]
 img="glacial_mountains_lightened.png"
-depth=500
+depth=800
 repeatX=true
 alignY=BOTTOM
 
 [clouds]
 img="clouds2.png"
-depth=600
+depth=1000
 repeatX=true
 alignY=BOTTOM
 speedX=-0.4
 
 [hdma]
 img="skygrad.png"
-depth=800
+depth=1200
 repeatX=true
 alignY=BOTTOM
