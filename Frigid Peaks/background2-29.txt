@@ -1,0 +1,12 @@
+[stars]
+img="background2-29.png"
+depth=INFINITE
+frames=4
+alignY=BOTTOM
+repeatX=2
+
+[nightmtns]
+img="nightmtns.png"
+depth=200
+repeatX=true
+alignY=BOTTOM

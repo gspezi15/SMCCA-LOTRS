@@ -5,47 +5,31 @@ repeatX=true
 repeatY=true
 alignY=BOTTOM
 
-[clouds1]
-img="clouds_mg_1_lightened.png"
-depth=100
+[cloudsurface]
+img="cloudsurface.png"
+depth=175
 repeatX=true
 alignY=BOTTOM
-speedX=-0.8
 parallaxY=0
 
-[clouds2]
-img="clouds_mg_2.png"
-depth=125
-repeatX=true
-alignY=BOTTOM
-speedX=-0.7
-parallaxY=0
-
-[clouds3]
-img="clouds_mg_3.png"
-depth=150
-repeatX=true
-alignY=BOTTOM
-speedX=-0.6
-parallaxY=0
-
-[mtn]
+[mtns]
 img="glacial_mountains_lightened.png"
-depth=250
+depth=300
 repeatX=true
 alignY=BOTTOM
 parallaxY=0
 
 [clouds4]
-img="clouds_bg.png"
+img="clouds2.png"
 depth=400
 repeatX=true
 alignY=BOTTOM
 speedX=-0.15
 parallaxY=0
 
-[sky]
-img="sky_lightened.png"
+[gradient]
+img="gradient.png"
 depth=INFINITE
 repeatX=true
 repeatY=true
+alignY=BOTTOM
