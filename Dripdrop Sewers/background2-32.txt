@@ -1,0 +1,17 @@
+[cavern]
+img="back.png"
+depth=500
+alignY=BOTTOM
+repeatX=true
+
+[backpipes]
+img="middle.png"
+depth=200
+repeatX=true
+alignY=BOTTOM
+
+[forepipes]
+img="front.png"
+depth=100
+repeatX=true
+alignY=BOTTOM
