@@ -1,0 +1,13 @@
+{
+	"style" : "tree",
+	"title" : "Zebetite Settings",
+	"layout": [{
+			"control": "combobox",
+			"name": "angle",
+			"title": "Angle",
+			"description": "The turret's starting angle.",
+			"elements": ["Down", "Down-Left", "Left", "Up-Left", "Up", "Up-Right", "Right", "Down-Right"],
+			"value-default": 0
+		}
+	]
+}
