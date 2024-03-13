@@ -1,0 +1,3 @@
+Credits:
+- Server and tank sprites by Deltom
+- Fire projectile sprite by MarshadowSlime

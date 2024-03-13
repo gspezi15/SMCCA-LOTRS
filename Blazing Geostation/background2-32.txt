@@ -1,0 +1,11 @@
+[background]
+img="background2-32.png"
+depth=500
+repeatX=true
+alignY=BOTTOM
+
+[cables]
+img="cables.png"
+depth=-10
+repeatX=true
+alignY=TOP

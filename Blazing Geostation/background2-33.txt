@@ -1,0 +1,17 @@
+[background]
+img="background2-32.png"
+depth=500
+repeatX=true
+alignY=BOTTOM
+
+[powerpillars]
+img="powerpillars.png"
+depth=200
+repeatX=true
+alignY=BOTTOM
+
+[cables]
+img="cables.png"
+depth=-10
+repeatX=true
+alignY=TOP

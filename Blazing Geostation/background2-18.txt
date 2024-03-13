@@ -1,0 +1,13 @@
+[background]
+img="background2-18.png"
+depth=200
+repeatX=true
+alignY=BOTTOM
+frames=4
+marginBottom=-64
+
+[cables]
+img="cables.png"
+depth=-10
+repeatX=true
+alignY=TOP

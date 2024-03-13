@@ -1,0 +1,60 @@
+{
+    "style": "groupbox",
+    "title": "Electricity Block Settings",
+    "layout": [
+		{
+			"control": "lineEdit",
+			"type": "string",
+			"name": "indices",
+			"title" : "Partner Indices",
+			"tooltip": "Determines which blocks to connect the electricity to when this block gets activated.",
+			"value-default": ""
+		},
+		{
+			"control": "spinBox",
+			"name": "idx",
+			"title": "Index",
+			"type": "int",
+			"value-default": 1,
+			"value-min": 0,
+			"value-max": 99999,
+			"single-step": 1
+		},
+		{
+			"control": "checkbox",
+			"name": "startActive",
+			"title": "Start Active",
+			"tooltip": "If true, the block will be activated automatically.",
+			"value-default": false
+		},
+		{
+			"control": "spinBox",
+			"name": "duration",
+			"title": "Duration",
+			"type": "int",
+			"value-default": 64,
+			"value-min": 0,
+			"value-max": 99999,
+			"single-step": 1
+		},
+		{
+			"control": "lineEdit",
+			"type": "string",
+			"name": "indicesToTrigger",
+			"title" : "Indices To Trigger",
+			"tooltip": "Determines which blocks to trigger when this block gets activated.",
+			"value-default": ""
+		},
+		{
+			"control": "spinBox",
+			"name": "triggerDelay",
+			"title": "Trigger Delay",
+			"tooltip": "After how many frames will the block trigger the blocks of given indices.",
+			"type": "int",
+			"value-default": 80,
+			"value-min": 0,
+			"value-max": 99999,
+			"single-step": 1
+		}
+    ]
+}
