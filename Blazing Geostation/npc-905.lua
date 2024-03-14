@@ -69,6 +69,8 @@ local sampleNPCSettings = {
 
 	--Define custom properties below
 	hp = 3,
+	effectExplosion1ID = 950,
+	effectExplosion2ID = 952,
 }
 
 --Applies NPC settings
@@ -111,6 +113,7 @@ local STATE_RISING = 4
 local STATE_BARRAGE = 5
 local STATE_BOMBS = 6
 local STATE_SHOWER = 7
+local STATE_KILL = 8
 local shoot = Misc.resolveFile("Missile Deploy.wav")
 local shower = Misc.resolveFile("Machine Gun-ish.wav")
 local lob = Misc.resolveFile("Missile.wav")
@@ -119,7 +122,9 @@ local rise = Misc.resolveFile("Mech Rising.wav")
 local ready = Misc.resolveFile("Machine Noise.wav")
 local bombs = Misc.resolveFile("Small Explosion.wav")
 local whoosh = Misc.resolveFile("Small Rocket Woosh.wav")
-local hit = Misc.resolveFile("COI_Bosshit.wav")
+local hit = Misc.resolveFile("s3k_damage.ogg")
+local explode = Misc.resolveFile("s3k_detonate.ogg")
+local bigexplode = Misc.resolveFIle("Explosion 2.wav")
 --Register events
 function sampleNPC.onInitAPI()
 	--npcManager.registerEvent(npcID, sampleNPC, "onTickNPC")
@@ -184,11 +189,10 @@ function sampleNPC.onTickEndNPC(v)
 		v.invisibleharm = false
 		v.harmed = false
 		v.hp = sampleNPCSettings.hp
-		v.idletime = RNG.randomInt(150, 300)
+		v.idletime = RNG.randomInt(150, 240)
 		if p.x < v.x + 0.5 * v.width then v.direction = -1; end;
 		if p.x > v.x + 0.5 * v.width then v.direction = 1; end;
 	end
-
 	if v.harmed == true then
 		v.harmtimer = v.harmtimer - 1
 		v.harmframe = v.harmframe + 1
@@ -206,7 +210,16 @@ function sampleNPC.onTickEndNPC(v)
 			v.harmed = false
 		end
 	end
-
+	--Depending on the NPC, these checks must be handled differently
+	if v:mem(0x12C, FIELD_WORD) > 0    --Grabbed
+	or v:mem(0x136, FIELD_BOOL)        --Thrown
+	or v:mem(0x138, FIELD_WORD) > 0    --Contained within
+	then
+		--Handling
+		v.state = STATE_CEILING
+		v.idletimer = 0
+		return
+	end
 	if v.state == STATE_CEILING then
 		v.speedX = 3 * v.direction
 		v.speedY = 0
@@ -214,7 +227,7 @@ function sampleNPC.onTickEndNPC(v)
 		if v.idletimer == v.idletime then
 			v.decision = RNG.randomInt(1, 6)
 			v.idletimer = 0
-			v.idletime = RNG.randomInt(150, 300)
+			v.idletime = RNG.randomInt(150, 240)
 			if v.decision == 1 then
 				v.state = STATE_PULSE
 			elseif v.decision == 2 then
@@ -224,7 +237,7 @@ function sampleNPC.onTickEndNPC(v)
 			elseif v.decision == 4 then
 				v.state = STATE_BOMBS
 			elseif v.decision == 5 then
-				v.yspeed = RNG.randomInt(3, 5)
+				v.speedY = RNG.randomInt(3, 5)
 				v.state = STATE_BARRAGE
 				v.idletime = RNG.randomInt(240, 360)
 			elseif v.decision == 6 then
@@ -409,23 +422,29 @@ function sampleNPC.onTickEndNPC(v)
 			v.idletime = RNG.randomInt(150, 300)
 			v.state = STATE_RISING
 		end
-	end
-
-	--Depending on the NPC, these checks must be handled differently
-	if v:mem(0x12C, FIELD_WORD) > 0    --Grabbed
-	or v:mem(0x136, FIELD_BOOL)        --Thrown
-	or v:mem(0x138, FIELD_WORD) > 0    --Contained within
-	then
-		--Handling
-	end
-	
-
+	elseif v.state == STATE_KILL then
+		v.harmed = true
+		v.idletimer = v.idletimer + 1
+		if v.idletimer % 16 == 0 then
+			SFX.play(explode)
+			local a = Animation.spawn(sampleNPCSettings.effectExplosion1ID,v.x+v.width/2,v.y+v.height/2)
+			a.x=a.x-a.width/2+RNG.randomInt(-sampleNPCSettings.width/2,sampleNPCSettings.width/2)
+			a.y=a.y-a.height/2+RNG.randomInt(-sampleNPCSettings.height/2,sampleNPCSettings.height/2)
+		end
+		if v.idletimer >= 200 then
+			SFX.play(bigexplode)
+			local a = Animation.spawn(sampleNPCSettings.effectExplosion2ID,v.x+v.width/2,v.y+v.height/2)
+			v:kill(HARM_TYPE_NPC)
+			a.x=a.x-a.width/2
+			a.y=a.y-a.height/2
+		end
+	end	
 end
 
 function sampleNPC.onNPCHarm(eventObj, v, killReason, culprit)
 	local data = v.data
 	if v.id ~= npcID then return end
-
+	if v.state == STATE_KILL then eventObj.cancelled = true return end
 	if killReason == HARM_TYPE_NPC or HARM_TYPE_PROJECTILE_USED or HARM_TYPE_SWORD then
 		if v:mem(0x156,FIELD_WORD) == 0 and v.harmed == false then
 			v.hp = v.hp - 1
@@ -435,9 +454,12 @@ function sampleNPC.onNPCHarm(eventObj, v, killReason, culprit)
 	else
 		return
 	end
-	if v.hp == 0 then
-		SFX.play(44)
-		Animation.spawn(69, v.x, v.y)
+	if v.hp <= 0 then
+		eventObj.cancelled = true
+		v.idletimer = 0
+		v.state = STATE_KILL
+		v.speedX = 0
+		v.speedY = 0
 		if v.legacyBoss then
 			local ball = NPC.spawn(16, v.x, v.y, v.section)
 			ball.x = ball.x + ((v.width - ball.width) / 2)
