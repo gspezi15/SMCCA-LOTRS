@@ -124,7 +124,7 @@ local bombs = Misc.resolveFile("Small Explosion.wav")
 local whoosh = Misc.resolveFile("Small Rocket Woosh.wav")
 local hit = Misc.resolveFile("s3k_damage.ogg")
 local explode = Misc.resolveFile("s3k_detonate.ogg")
-local bigexplode = Misc.resolveFIle("Explosion 2.wav")
+local bigexplode = Misc.resolveFile("Explosion 2.wav")
 --Register events
 function sampleNPC.onInitAPI()
 	--npcManager.registerEvent(npcID, sampleNPC, "onTickNPC")
