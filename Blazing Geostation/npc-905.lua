@@ -451,7 +451,9 @@ function sampleNPC.onNPCHarm(eventObj, v, killReason, culprit)
 			SFX.play(hit)
 			v.harmed = true
 		end
+		eventObj.cancelled = true
 	else
+		eventObj.cancelled = true
 		return
 	end
 	if v.hp <= 0 then
