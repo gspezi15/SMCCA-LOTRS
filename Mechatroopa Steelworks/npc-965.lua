@@ -27,9 +27,9 @@ npcManager.setNpcSettings({
 	lightbrightness=1,
 	lightcolor=Color.orange,
 
-	spread=0,
-	delay=8,
-	top=14,
+	spread=18,
+	delay=10,
+	top=20,
 	ishot = true,
 	durability = -1
 })

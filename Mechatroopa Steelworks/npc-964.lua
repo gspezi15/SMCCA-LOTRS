@@ -37,7 +37,7 @@ local sampleNPCSettings = {
 	nohurt=false,
 	nogravity = false,
 	noblockcollision = false,
-	nofireball = false,
+	nofireball = true,
 	noiceball = true,
 	noyoshi= true,
 	nowaterphysics = true,
@@ -84,6 +84,7 @@ local sampleNPCSettings = {
 	idledetectboxx = 320,
 	idledetectboxy = 272,
 	shockwaveid=842,
+	intenseshockwaveid=965,
 	debug = false,
 	hp = 8,
 	effectExplosion1ID = 950,
@@ -134,8 +135,9 @@ spawnOffsetSlam[1] = (58)
 local sfx_weaponswing = Misc.resolveFile("Swing.wav")
 local sfx_weaponthud = Misc.resolveFile("s3k_stomp.ogg")
 local sfx_hit = Misc.resolveFile("s3k_damage.ogg")
-local sfx_explode = Misc.resolveFile("s3k_stomp.ogg")
+local sfx_explode = Misc.resolveFile("s3k_detonate.ogg")
 local sfx_charge = Misc.resolveFile("dbz_energy_charge.mp3")
+local sfx_crash = Misc.resolveFile("S3K_9B.wav")
 
 --Register events
 function sampleNPC.onInitAPI()
@@ -184,6 +186,7 @@ function sampleNPC.onTickEndNPC(v)
 		data.rndTimer = RNG.randomInt(120,180)
 		data.cooldown = 0
 		data.consecutive = 0
+		v.ai1 = 0
 	end
 
 	--Depending on the NPC, these checks must be handled differently
@@ -196,6 +199,7 @@ function sampleNPC.onTickEndNPC(v)
 	if (v.collidesBlockLeft or v.collidesBlockRight) then
 		v.direction = -v.direction
 	end
+	Text.print(data.health,110,110)
 	if data.state ~= 1 then
 		data.timer = data.timer + 1
 		if data.cooldown > 0 then
@@ -218,14 +222,10 @@ function sampleNPC.onTickEndNPC(v)
 			--2 Ram Attack, 3 Jump Up and then slam while causing a shockwave, 5 charge up and then slam three times two to four times of long-lasting shockwaves
 			data.state = RNG.irandomEntry{2,5,3}
 			if data.state == 5 then
-				if data.health <= sampleNPCSettings.hp and data.health > sampleNPCSettings.hp*3/4 then
-					data.consecutive = 2
-				elseif data.health <= sampleNPCSettings.hp*3/4 and data.health*3/4 > sampleNPCSettings.hp*2/4 then
+				if data.health <= sampleNPCSettings.hp and data.health > sampleNPCSettings.hp*2/4 then
 					data.consecutive = 3
-				elseif data.health <= sampleNPCSettings.hp*2/4 and data.health > sampleNPCSettings.hp*1/4 then
-					data.consecutive = 4
 				else
-					data.consecutive = 5
+					v.ai1 = 1
 				end
 			end
 			npcutils.faceNearestPlayer(v)
@@ -360,6 +360,7 @@ function sampleNPC.onTickEndNPC(v)
 			v.speedY = -9
 			v.speedX = 0
 		end
+		v.speedX = 0
 		if data.feet == nil then
 			data.feet = Colliders.Box(0,0,v.width,1)
 			data.lastFrameCollision = true
@@ -432,6 +433,7 @@ function sampleNPC.onTickEndNPC(v)
 			v.speedX = 2.5 * v.direction
 		end
 	elseif data.state == 5 then
+		v.speedX = 0
 		if data.timer < 6 then
 			v.animationFrame = 3
 		elseif data.timer < 70 then
@@ -449,7 +451,7 @@ function sampleNPC.onTickEndNPC(v)
 		end
 		if data.timer < 70 and data.timer % 6 == 5 then
 			for i=0,2 do
-				local ptl = Animation.spawn(80, math.random(v.x - v.width / 2, v.x + v.width / 2), math.random(v.y - v.height / 2, v.y + v.height / 2))
+				local a = Animation.spawn(80, math.random(v.x, v.x + v.width), math.random(v.y, v.y + v.height))
 				a.x=a.x-a.width/2
 				a.y=a.y-a.height/2
 			end
@@ -459,13 +461,20 @@ function sampleNPC.onTickEndNPC(v)
 			plr:harm()
 		end
 		if data.timer >= 90 then
-			data.consecutive = data.consecutive - 1
-			if data.consecutive <= 0 then
+			if v.ai1 == 0 then
+				data.consecutive = data.consecutive - 1
+				if data.consecutive <= 0 then
+					data.state = 0
+					data.timer = 0
+					npcutils.faceNearestPlayer(v)
+				else
+					data.timer = 70
+				end
+			else
 				data.state = 0
 				data.timer = 0
 				npcutils.faceNearestPlayer(v)
-			else
-				data.timer = 70
+				v.ai1 = 0
 			end
 		end
 		if data.feet == nil then
@@ -500,13 +509,22 @@ function sampleNPC.onTickEndNPC(v)
 				if #footCollisions > 0 then
 					collidesWithSolid = true
 					if not data.lastFrameCollision then
-						local id = NPC.config[v.id].shockwaveid
-						SFX.play(4)
-						local f = NPC.spawn(id, v.x + v.width/2 - data.weaponBox.width/2 + sampleNPCSettings.hitboxxoffset[v.direction], footCollisions[1].y - 0.5 * NPC.config[id].height, v:mem(0x146, FIELD_WORD), false, true)
-						Animation.spawn(1, v.x + v.width/2 - data.weaponBox.width/2 + sampleNPCSettings.hitboxxoffset[v.direction], footCollisions[1].y - 4)
-						f.speedX = 4.5 * v.direction
-						Defines.earthquake = 5
-						SFX.play(sfx_weaponthud)
+						if v.ai1 == 0 then
+							local id = NPC.config[v.id].shockwaveid
+							SFX.play(4)
+							local f = NPC.spawn(id, v.x + v.width/2 - data.weaponBox.width/2 + sampleNPCSettings.hitboxxoffset[v.direction], footCollisions[1].y - 0.5 * NPC.config[id].height, v:mem(0x146, FIELD_WORD), false, true)
+							Animation.spawn(1, v.x + v.width/2 - data.weaponBox.width/2 + sampleNPCSettings.hitboxxoffset[v.direction], footCollisions[1].y - 4)
+							f.speedX = 5 * v.direction
+							Defines.earthquake = 5
+							SFX.play(sfx_weaponthud)
+						else
+							local id = NPC.config[v.id].intenseshockwaveid
+							SFX.play(4)
+							local f = NPC.spawn(id, v.x + v.width/2 - data.weaponBox.width/2 + sampleNPCSettings.hitboxxoffset[v.direction], footCollisions[1].y - 0.5 * NPC.config[id].height, v:mem(0x146, FIELD_WORD), false, true)
+							Animation.spawn(1, v.x + v.width/2 - data.weaponBox.width/2 + sampleNPCSettings.hitboxxoffset[v.direction], footCollisions[1].y - 4)
+							Defines.earthquake = 10
+							SFX.play(sfx_crash)
+						end
 						return
 					end
 				end
@@ -522,14 +540,16 @@ function sampleNPC.onTickEndNPC(v)
 		v.harmed = true
 		v.friendly = true
 		if data.timer % 24 == 0 then
-			local a = Animation.spawn(sampleNPCSettings.effectExplosion1ID, math.random(v.x - v.width / 2, v.x + v.width / 2), math.random(v.y - v.height / 2, v.y + v.height / 2))
+			local a = Animation.spawn(sampleNPCSettings.effectExplosion1ID, math.random(v.x, v.x + v.width), math.random(v.y, v.y + v.height))
 			a.x=a.x-a.width/2
 			a.y=a.y-a.height/2
 			SFX.play(sfx_explode)
 		end
 		if data.timer == 250 then
 			v:kill(9)
-			Animation.spawn(sampleNPCSettings.effectExplosion2ID, v.x + (v.width / 4), v.y)
+			local a = Animation.spawn(sampleNPCSettings.effectExplosion2ID, v.x + (v.width / 2), v.y + (v.height / 2))
+			a.x=a.x-a.width/2
+			a.y=a.y-a.height/2
 		end
 	end
 	if data.state ~= 4 then
@@ -567,57 +587,77 @@ function sampleNPC.onTickEndNPC(v)
 
 end
 
-function sampleNPC.onNPCHarm(e, v, o, c)
+function sampleNPC.onNPCHarm(eventObj, v, reason, culprit)
 	local data = v.data
-	if v.id ~= NPC_ID then return end
-	if o == HARM_TYPE_LAVA then return end
-	if v.harmed == true then
-		if o == HARM_TYPE_JUMP or o == HARM_TYPE_SPINJUMP or o == HARM_TYPE_SWORD or o == HARM_TYPE_FROMBELOW or (type(c) == "NPC") then
-			local data = v.data
-			data.health = data.health - 1
-			if data.health > 0 then
-				e.cancelled = true
-				data.timer = 0
-				if o == HARM_TYPE_JUMP or o == HARM_TYPE_SPINJUMP then
-					SFX.play(2)
-				elseif o == HARM_TYPE_SWORD then
-					SFX.play(Misc.resolveSoundFile("zelda-hit"))
-				else
-					SFX.play(9)
+	if v.id ~= npcID then return end
+	if reason ~= HARM_TYPE_LAVA then
+		if not v.harmed then
+			if reason == HARM_TYPE_JUMP or killReason == HARM_TYPE_SPINJUMP or killReason == HARM_TYPE_FROMBELOW then
+				SFX.play(sfx_hit)
+				v.harmed = true
+				data.health = data.health - 1
+			elseif reason == HARM_TYPE_SWORD then
+				if v:mem(0x156, FIELD_WORD) <= 0 then
+					data.health = data.health - 1
+					SFX.play(sfx_hit)
+					v:mem(0x156, FIELD_WORD,20)
 				end
 				if Colliders.downSlash(player,v) then
 					player.speedY = -6
 				end
-				SFX.play(sfx_hit)
-				v.harmed = true
-			else
-				data.state = 3
-				data.timer = 0
-				e.cancelled = true
-			end
-			if o ~= HARM_TYPE_JUMP and o ~= HARM_TYPE_SPINJUMP then
-				if c then
-					Animation.spawn(75, c.x+c.width/2-16, c.y+c.width/2-16)
-				end
-			end
-			if c then
-				if type(c) == "NPC" and (c.id ~= 195 and c.id ~= 50) and NPC.HITTABLE_MAP[culprit.id] then
-					c:kill(HARM_TYPE_NPC)
-				elseif c.__type == "Player" then
-					--Bit of code taken from the basegame chucks
-					if (c.x + 0.5 * c.width) < (v.x + v.width*0.5) then
-						c.speedX = -4
+			elseif reason == HARM_TYPE_NPC then
+				if culprit then
+					if type(culprit) == "NPC" then
+						if culprit.id == 13  then
+							SFX.play(sfx_hit)
+							data.health = data.health - 1
+						else
+							SFX.play(sfx_hit)
+							data.health = data.health - 1
+							v.harmed = true
+						end
 					else
-						c.speedX = 4
+						SFX.play(sfx_hit)
+						data.health = data.health - 1
+						v.harmed = true
 					end
-				elseif type(c) == "NPC" and (NPC.HITTABLE_MAP[c.id] or c.id == 45) and c.id ~= 50 and v:mem(0x138, FIELD_WORD) == 0 then
-					c:kill(HARM_TYPE_NPC)
+				else
+					SFX.play(sfx_hit)
+					data.health = data.health - 1
+					v.harmed = true
 				end
+			elseif reason == HARM_TYPE_LAVA and v ~= nil then
+				v:kill(HARM_TYPE_OFFSCREEN)
+			elseif v:mem(0x12, FIELD_WORD) == 2 then
+				v:kill(HARM_TYPE_OFFSCREEN)
+			end
+			if culprit then
+				if type(culprit) == "NPC" and (culprit.id ~= 195 and culprit.id ~= 50) and NPC.HITTABLE_MAP[culprit.id] then
+					culprit:kill(HARM_TYPE_NPC)
+				elseif culprit.__type == "Player" then
+					--Bit of code taken from the basegame chucks
+					if (culprit.x + 0.5 * culprit.width) < (v.x + v.width*0.5) then
+						culprit.speedX = -4
+					else
+						culprit.speedX = 4
+					end
+				elseif type(culprit) == "NPC" and (NPC.HITTABLE_MAP[culprit.id] or culprit.id == 45) and culprit.id ~= 50 and v:mem(0x138, FIELD_WORD) == 0 then
+					culprit:kill(HARM_TYPE_NPC)
+				end
+			end
+			if data.health <= 0 then
+				data.state = 7
+				data.timer = 0
+			elseif data.health > 0 then
+				eventObj.cancelled = true
+				v:mem(0x156,FIELD_WORD,60)
 			end
 		end
 	else
-		e.cancelled = true
+		v:kill(HARM_TYPE_LAVA)
 	end
+	
+	eventObj.cancelled = true
 end
 
 --Gotta return the library table!
