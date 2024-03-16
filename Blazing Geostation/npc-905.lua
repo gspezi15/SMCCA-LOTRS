@@ -392,6 +392,7 @@ function sampleNPC.onTickEndNPC(v)
 	elseif v.state == STATE_BARRAGE then
 		v.idletimer = v.idletimer + 1
 		v.loadtimer1 = v.loadtimer1 + 1
+		if v.yspeed == 0 then v.yspeed = 4 end
 		v.speedY = v.yspeed
 		v.diagonal = false
 		v.speedX = 1.75 * v.direction
