@@ -199,7 +199,6 @@ function sampleNPC.onTickEndNPC(v)
 	if (v.collidesBlockLeft or v.collidesBlockRight) then
 		v.direction = -v.direction
 	end
-	Text.print(data.health,110,110)
 	if data.state ~= 1 then
 		data.timer = data.timer + 1
 		if data.cooldown > 0 then
