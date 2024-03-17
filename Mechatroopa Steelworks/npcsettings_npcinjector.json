@@ -1,0 +1,65 @@
+{
+	"style" : "groupbox",
+	"title" : "NPC Injector Settings",
+	"layout": [
+		{
+			"control": "comboBox",
+			"name": "spawnAction",
+			"title": "After spawning...",
+			"tooltip": "What the spawned NPC should do immediately after spawning.",
+			"elements": ["Do nothing","Put in Projectile State","Collect (for coins, powerups, etc.)"],
+			"value-default": 1
+		},
+		{
+			"control": "spinBox",
+			"name": "spawnSpeedX",
+			"title": "Spawn Speed X",
+			"tooltip": "The horizontal speed given to the NPC when spawned. Relative to the container NPC's direction.",
+			"type": "double",
+			"decimals": 2,
+			"value-default": 0,
+			"value-min": -10,
+			"value-max": 10
+		},
+		{
+			"control": "spinBox",
+			"name": "spawnSpeedY",
+			"title": "Spawn Speed Y",
+			"tooltip": "The vertical speed given to the NPC when spawned.",
+			"type": "double",
+			"decimals": 2,
+			"value-default": -5,
+			"value-min": -10,
+			"value-max": 10
+		},
+		{
+			"control": "group",
+			"name": "spawnWhen",
+			"title": "Spawn after...",
+			"children": [
+				{
+					"control": "checkBox",
+					"name": "vanish",
+					"title": "Disappearing",
+					"tooltip": "If ticked, the contained NPC will be spawned when the container dies by disappearing.",
+					"value-default": true
+				},
+				{
+					"control": "checkBox",
+					"name": "lava",
+					"title": "Dying to Lava",
+					"tooltip": "If ticked, the contained NPC will be spawned when the container dies by lava.",
+					"value-default": true
+				},
+				{
+					"control": "checkBox",
+					"name": "other",
+					"title": "Other",
+					"tooltip": "If ticked, the contained NPC will be spawned when the container dies by any other means.",
+					"value-default": true
+				}
+			]
+		}
+	]
+}
+
