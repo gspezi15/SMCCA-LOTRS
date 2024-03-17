@@ -86,7 +86,7 @@ local sampleNPCSettings = {
 	shockwaveid=842,
 	intenseshockwaveid=965,
 	debug = false,
-	hp = 8,
+	hp = 10,
 	effectExplosion1ID = 950,
 	effectExplosion2ID = 952,
 }
